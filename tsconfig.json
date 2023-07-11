@@ -6,6 +6,12 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "types": ["vite-plugin-svgr/client"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@partials/*": ["./src/partials/*"],
+      "@images/*": ["./src/images/*"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
