@@ -1,12 +1,14 @@
 import "./App.css";
+import Main from "./components/Main/Main";
+import Nav from "./components/Nav/Nav";
 
 function App() {
-  return <>
-  
-  
-  
-  
-  </>;
+  return (
+    <>
+      <Nav />
+      <Main />
+    </>
+  );
 }
 
 export default App;
