@@ -12,7 +12,7 @@ import productThumbnail4 from "@images/image-product-4-thumbnail.jpg";
 
 import { ReactComponent as PreviousIcon } from "@images/icon-previous.svg";
 import { ReactComponent as NextIcon } from "@images/icon-next.svg";
-import RoundedButton from "@/partials/RoundedButton";
+import RoundedButton from "@partials/RoundedButton";
 
 const productImages = [
   productImage1,

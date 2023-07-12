@@ -7,10 +7,10 @@
     "skipLibCheck": true,
     "types": ["vite-plugin-svgr/client"],
     "paths": {
-      "@/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
+      "@images/*": ["./src/images/*"],
       "@partials/*": ["./src/partials/*"],
-      "@images/*": ["./src/images/*"]
+      "@components/*": ["./src/components/*"],
+      "@/*": ["./src/*"]
     },
 
     /* Bundler mode */
