@@ -26,12 +26,18 @@ export default function Cart(props: Props) {
   const windowWidth = useWindowWidth();
   const toggleBtn = useRef<HTMLButtonElement>(null);
   const detailBox = useRef<HTMLDivElement>(null);
-  const [detailBoxOffset, setDetailBoxOffest] = useState(0);
   const [isDetailBoxActive, setIsDetailBoxActive] = useState(false);
+
+  function onDetailBoxOffsetChange(newOffset: number) {
+    if (detailBox.current == null) return;
+    detailBox.current.style.setProperty(
+      "--tw-translate-x",
+      `calc(-50% - ${newOffset}px)`
+    );
+  }
 
   useEffect(
     function () {
-      console.log("Window width: ", windowWidth);
       if (
         toggleBtn.current == null ||
         !isDetailBoxActive ||
@@ -41,19 +47,14 @@ export default function Cart(props: Props) {
       }
 
       const toggleBtnRect = toggleBtn.current.getBoundingClientRect();
-      const toggleBtnCenterX = toggleBtnRect.left;
-      const availableSpaceOnRight = windowWidth - toggleBtnCenterX;
-      console.log("Available Space: ", availableSpaceOnRight);
+
+      const availableSpaceOnRight = windowWidth - toggleBtnRect.left;
 
       const detailBoxRect = detailBox.current.getBoundingClientRect();
       if (availableSpaceOnRight > detailBoxRect.width / 2) {
-        console.log(0);
-        setDetailBoxOffest(0);
+        onDetailBoxOffsetChange(0);
       } else {
-        console.log(
-          Math.floor(detailBoxRect.width / 2 - availableSpaceOnRight)
-        );
-        return setDetailBoxOffest(
+        onDetailBoxOffsetChange(
           Math.floor(detailBoxRect.width / 2 - availableSpaceOnRight)
         );
       }
@@ -61,22 +62,11 @@ export default function Cart(props: Props) {
     [windowWidth, isDetailBoxActive]
   );
 
-  useEffect(
-    function () {
-      if (detailBox.current == null) return;
-      detailBox.current.style.setProperty(
-        "--tw-translate-x",
-        `calc(-50% - ${detailBoxOffset}px)`
-      );
-    },
-    [detailBoxOffset]
-  );
-  ("");
   return (
     <div className="relative grid place-items-center">
       <button
         ref={toggleBtn}
-        onClick={function (e) {
+        onClick={function () {
           setIsDetailBoxActive(!isDetailBoxActive);
         }}
         className={clsx(
