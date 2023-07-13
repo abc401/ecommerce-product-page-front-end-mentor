@@ -1,5 +1,4 @@
 import defaultTheme from "tailwindcss/defaultTheme";
-import colors from "tailwindcss/colors";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -8,8 +7,8 @@ export default {
     fontFamily: {
       sans: ["Kumbh Sans", defaultTheme.fontFamily.sans],
     },
-    colors: {
-      ...colors,
+    colors: (theme) => ({
+      ...theme.colors,
       accent: {
         500: "hsl(26, 100%, 55%)",
         100: "hsl(25, 100%, 94%)",
@@ -20,7 +19,7 @@ export default {
         200: "hsl(220, 14%, 75%)",
         100: "hsl(223, 64%, 98%)",
       },
-    },
+    }),
   },
   plugins: [],
 };

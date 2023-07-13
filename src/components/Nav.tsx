@@ -15,13 +15,18 @@ export default function Nav() {
   const navList = useRef<HTMLUListElement>(null);
 
   const [isUlActive, setIsUlActive] = useState(false);
-  document.addEventListener("focusin", function (e) {
-    if (navListToggle.current == null) return;
-    if (navList.current == null) return;
-    if (e.target == null) return;
-    if (!(e.target instanceof Node)) return;
 
-    let target = e.target as Node;
+  document.addEventListener("focusin", function (e) {
+    if (
+      navListToggle.current == null ||
+      navList.current == null ||
+      e.target == null ||
+      !(e.target instanceof Node)
+    ) {
+      return;
+    }
+
+    const target = e.target as Node;
 
     if (
       e.target === navListToggle.current ||
@@ -29,8 +34,8 @@ export default function Nav() {
     ) {
       return;
     }
+
     setIsUlActive(false);
-    console.log("Set to false");
   });
 
   return (
@@ -76,11 +81,11 @@ export default function Nav() {
           <a href="#">Contact</a>
         </li>
       </ul>
-      <div className="ml-4 flex flex-grow-0 items-center justify-center space-x-5">
+      <div className="ml-4 flex flex-shrink-0 flex-grow-0 items-center justify-center space-x-5">
         <Cart className="h-5" />
         <div className="min-w-[1.5rem] max-w-[2.5rem]">
           <img
-            className="rounded-full outline outline-2 outline-transparent transition-[outline-color] ease-in hover:outline-accent-500"
+            className="w-6 rounded-full outline outline-2 outline-transparent transition-[outline-color] ease-in hover:outline-accent-500"
             src={UserAvatar}
             alt="User avatar"
           />
