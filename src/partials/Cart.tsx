@@ -63,14 +63,14 @@ export default function Cart(props: Props) {
   );
 
   return (
-    <div className="relative grid place-items-center">
+    <div className="grid place-items-center">
       <button
         ref={toggleBtn}
         onClick={function () {
           setIsDetailBoxActive(!isDetailBoxActive);
         }}
         className={clsx(
-          "text-neutral-500 hover:text-black focus:text-black",
+          "relative text-neutral-500 hover:text-black focus:text-black",
           props.className
         )}
         type="button"
@@ -90,7 +90,7 @@ export default function Cart(props: Props) {
           {
             hidden: !isDetailBoxActive,
           },
-          "absolute -left-3 top-full my-2 grid min-h-[250px] w-[clamp(200px,_100vw-2*theme(margin.3),375px-2*theme(margin.3))] translate-x-[calc(-(_50%_+_200px_))] translate-y-8 grid-rows-[auto,_1fr] rounded-lg bg-white"
+          "absolute -left-3 top-full my-2 grid min-h-[250px] w-[clamp(200px,_100vw-2*theme(margin.3),375px-2*theme(margin.3))] translate-x-[calc(-(_50%_+_200px_))] translate-y-8 grid-rows-[auto,_1fr] rounded-lg bg-white shadow-2xl"
         )}
       >
         <h2 className="border-b border-b-neutral-100 py-4 ps-6 font-bold">

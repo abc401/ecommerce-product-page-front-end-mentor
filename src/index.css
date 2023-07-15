@@ -1,10 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/* sm:text-4.5xltext-3xl */
 @layer base {
   h1 {
-    @apply my-4 text-3xl font-bold;
+    @apply my-4 text-[clamp(theme(fontSize.3xl),_calc(0.708rem_+_4.6vw),theme(fontSize[4.5xl]))]  font-bold;
   }
 
   p {

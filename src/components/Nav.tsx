@@ -10,9 +10,13 @@ import { useRef, useState } from "react";
 import clsx from "clsx";
 import Cart from "@partials/Cart";
 
-export default function Nav() {
+interface Props {
+  className?: string;
+}
+
+export default function Nav(props: Props) {
   const navListToggle = useRef<HTMLButtonElement>(null);
-  const navList = useRef<HTMLUListElement>(null);
+  const navList = useRef<HTMLDivElement>(null);
 
   const [isUlActive, setIsUlActive] = useState(false);
 
@@ -39,14 +43,19 @@ export default function Nav() {
   });
 
   return (
-    <nav className="sticky left-0 top-0 z-[8000] flex flex-grow-0 items-center justify-between bg-white p-6">
-      <div className="flex flex-shrink-0 items-center space-x-4">
+    <nav
+      className={clsx(
+        "sticky left-0 top-0 z-[8000] grid w-full grid-cols-[max-content,_1fr,_auto] gap-4 bg-white p-6 sm:border-b sm:border-b-neutral-200/75 sm:px-0 sm:py-8 md:grid-cols-[max-content,_auto,_1fr,_auto] md:gap-14",
+        props.className
+      )}
+    >
+      <div className="grid grid-flow-col items-center gap-4">
         <button
           ref={navListToggle}
           onClick={function () {
             setIsUlActive(!isUlActive);
           }}
-          className="isolate z-[9999]"
+          className="isolate z-[9999] w-max md:hidden"
         >
           {(function () {
             if (isUlActive) {
@@ -57,39 +66,39 @@ export default function Nav() {
         </button>
         <Logo />
       </div>
-      <ul
+      <div
         ref={navList}
-        className={clsx({
-          "fixed left-0 top-0 z-[9000] m-0 min-h-[100vh] w-[68%] space-y-4 bg-white pl-6 pt-24 font-bold after:fixed after:right-0 after:top-0 after:min-h-[100vh] after:w-[32%] after:bg-black/75 after:content-['']":
+        className={clsx("md:flex md:items-center", {
+          "fixed left-0 right-0 top-0 z-[9000] m-0 grid min-h-[100vh] grid-cols-[auto,minmax(1rem,_8rem)] font-bold after:bg-black/75 md:static md:min-h-[auto]":
             isUlActive,
           hidden: !isUlActive,
         })}
       >
-        <li>
-          <a href="#">Collections</a>
-        </li>
-        <li>
-          <a href="#">Men</a>
-        </li>
-        <li>
-          <a href="#">Women</a>
-        </li>
-        <li>
-          <a href="#">About</a>
-        </li>
-        <li>
-          <a href="#">Contact</a>
-        </li>
-      </ul>
-      <div className="ml-4 flex flex-shrink-0 flex-grow-0 items-center justify-center space-x-5">
-        <Cart className="h-5" />
-        <div className="min-w-[1.5rem] max-w-[2.5rem]">
-          <img
-            className="w-6 rounded-full outline outline-2 outline-transparent transition-[outline-color] ease-in hover:outline-accent-500"
-            src={UserAvatar}
-            alt="User avatar"
-          />
-        </div>
+        <ul className="flex flex-col gap-9 bg-white px-6 pt-24 md:flex-row md:p-0 md:text-sm md:text-neutral-500">
+          <li>
+            <a href="#">Collections</a>
+          </li>
+          <li>
+            <a href="#">Men</a>
+          </li>
+          <li>
+            <a href="#">Women</a>
+          </li>
+          <li>
+            <a href="#">About</a>
+          </li>
+          <li>
+            <a href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <div className="col-end-[-1] grid w-fit grid-cols-[theme(width.4),_theme(width.6),theme(width.6)] sm:grid-cols-[minmax(theme(width.4),_theme(width.5)),minmax(theme(width.6),_theme(width.12)),minmax(theme(width.6),_theme(width.12))]">
+        <Cart className="col-start-1" />
+        <img
+          className="col-start-3 aspect-square rounded-full outline outline-2 outline-transparent transition-[outline-color] ease-in hover:outline-accent-500"
+          src={UserAvatar}
+          alt="User avatar"
+        />
       </div>
     </nav>
   );
