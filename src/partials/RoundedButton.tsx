@@ -7,7 +7,7 @@ export default function RoundedButton(
     <button
       {...props}
       className={clsx(
-        "grid place-content-center rounded-full bg-white hover:text-accent-500",
+        "grid place-content-center rounded-full bg-white hover:text-accent-500 focus-visible:text-accent-500",
         props.className
       )}
     >

@@ -32,11 +32,14 @@ export default function ProductDescription(props: Props) {
         </div>
         <div className="grid gap-4 lg:grid-cols-[auto,_1fr]">
           <div className="flex items-center justify-between gap-4 rounded-xl bg-neutral-100">
-            <button className="p-6 hover:opacity-60" type="button">
+            <button
+              className="p-6 hover:opacity-60 focus-visible:opacity-60"
+              type="button"
+            >
               <MinusIcon />
             </button>
             <span className="font-bold">0</span>
-            <button className="p-6 hover:opacity-60">
+            <button className="p-6 hover:opacity-60 focus-visible:opacity-60">
               <PlusIcon />
             </button>
           </div>

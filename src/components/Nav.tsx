@@ -55,7 +55,7 @@ export default function Nav(props: Props) {
           onClick={function () {
             setIsUlActive(!isUlActive);
           }}
-          className="isolate z-[9999] w-max md:hidden"
+          className="isolate z-[9010] w-max md:hidden"
         >
           {(function () {
             if (isUlActive) {
@@ -93,12 +93,10 @@ export default function Nav(props: Props) {
         </ul>
       </div>
       <div className="col-end-[-1] grid w-fit grid-cols-[theme(width.4),_theme(width.6),theme(width.6)] sm:grid-cols-[minmax(theme(width.4),_theme(width.5)),minmax(theme(width.6),_theme(width.12)),minmax(theme(width.6),_theme(width.12))]">
-        <Cart className="col-start-1" />
-        <img
-          className="col-start-3 aspect-square rounded-full outline outline-2 outline-transparent transition-[outline-color] ease-in hover:outline-accent-500"
-          src={UserAvatar}
-          alt="User avatar"
-        />
+        <Cart className="" />
+        <button className="hover-outline | col-start-3 aspect-square rounded-full">
+          <img src={UserAvatar} alt="User avatar" />
+        </button>
       </div>
     </nav>
   );

@@ -29,7 +29,7 @@ export default {
         xs: "490px",
         sm: "710px",
         md: "796px",
-        lg: "846px",
+        lg: "866px",
       },
     },
   },
