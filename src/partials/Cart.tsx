@@ -1,6 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import { ReactComponent as CartIcon } from "/src/images/icon-cart.svg";
+
 import clsx from "clsx";
+import CartContext from "@contexts/CartContext";
+
+import ProductThumbnail from "@images/image-product-1-thumbnail.jpg";
+import { ReactComponent as TrashIcon } from "@images/icon-delete.svg";
 
 interface Props {
   className?: string;
@@ -27,6 +32,7 @@ export default function Cart(props: Props) {
   const toggleBtn = useRef<HTMLButtonElement>(null);
   const detailBox = useRef<HTMLDivElement>(null);
   const [isDetailBoxActive, setIsDetailBoxActive] = useState(false);
+  const [cartContext, setCartContext] = useContext(CartContext);
 
   function onDetailBoxOffsetChange(newOffset: number) {
     if (detailBox.current == null) return;
@@ -63,7 +69,7 @@ export default function Cart(props: Props) {
   );
 
   return (
-    <div className="grid place-items-center">
+    <div className="relative grid place-items-center">
       <button
         ref={toggleBtn}
         onClick={function () {
@@ -78,9 +84,11 @@ export default function Cart(props: Props) {
         <CartIcon className="min-w-[1rem]" />
 
         {/* Cart Item Count */}
-        <span className="absolute right-0 top-0 -translate-y-1/2 translate-x-[40%] rounded-full bg-accent-500 px-1.5 text-[0.6rem] font-bold text-white">
-          4
-        </span>
+        {cartContext > 0 && (
+          <span className="absolute right-0 top-0 -translate-y-1/2 translate-x-[40%] rounded-full bg-accent-500 px-1.5 text-[0.6rem] font-bold text-white">
+            {cartContext}
+          </span>
+        )}
       </button>
 
       {/* Cart Details */}
@@ -90,15 +98,41 @@ export default function Cart(props: Props) {
           {
             hidden: !isDetailBoxActive,
           },
-          "absolute -left-3 top-full my-2 grid min-h-[250px] w-[clamp(200px,_100vw-2*theme(margin.3),375px-2*theme(margin.3))] translate-x-[calc(-(_50%_+_200px_))] translate-y-8 grid-rows-[auto,_1fr] rounded-lg bg-white shadow-2xl"
+          "absolute -left-3 top-full my-2 grid min-h-[200px] w-[clamp(100px,_100vw-2*theme(margin.3),_320px-2*theme(margin.3))] translate-x-[calc(-(_50%_+_200px_))] translate-y-6 grid-rows-[auto,_1fr] rounded-lg bg-white shadow-2xl"
         )}
       >
         <h2 className="border-b border-b-neutral-100 py-4 ps-6 font-bold">
           Cart
         </h2>
-        <div className="grid place-items-center font-bold">
-          <p className="m-0">Your cart is empty</p>
-        </div>
+
+        {cartContext > 0 ? (
+          <div className="flex flex-col gap-4 p-4">
+            <div className="grid w-full grid-cols-[auto,_1fr,_auto] gap-2 text-sm text-neutral-500">
+              <img className="w-10 rounded-md" src={ProductThumbnail} alt="" />
+              <div>
+                <span>Fall Limited Edition Sneakers</span>
+                <div>
+                  <span>
+                    $125.00 x {cartContext}{" "}
+                    <span className="font-bold text-black">$375.00</span>
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={function () {
+                  setCartContext(0);
+                }}
+              >
+                <TrashIcon />
+              </button>
+            </div>
+            <button className="btn btn-primary">Checkout</button>
+          </div>
+        ) : (
+          <div className="grid place-items-center">
+            <p className="m-0 font-bold">Your cart is empty</p>
+          </div>
+        )}
       </div>
     </div>
   );

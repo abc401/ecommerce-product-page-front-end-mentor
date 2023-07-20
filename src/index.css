@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* sm:text-4.5xltext-3xl */
+
 @layer base {
   h1 {
     @apply my-4 text-[clamp(theme(fontSize.3xl),_calc(0.708rem_+_4.6vw),theme(fontSize[4.5xl]))]  font-bold;
@@ -13,7 +13,7 @@
 
   button,
   a {
-    @apply outline-none outline outline-2 outline-transparent transition-[outline-color] ease-in focus-visible:outline-none focus-visible:outline-accent-500;
+    @apply outline outline-2 outline-offset-2 outline-transparent transition-[outline-color] ease-in focus-visible:outline-none focus-visible:outline-accent-500;
   }
 
   img,
@@ -22,8 +22,18 @@
   }
 }
 
-@layer component {
+@layer components {
+  .btn {
+    @apply inline-flex justify-center gap-4 rounded-xl p-4 font-bold;
+  }
+
+  .btn-primary {
+    @apply bg-accent-500 text-white hover:bg-accent-500/70;
+  }
+}
+
+@layer utilities {
   .hover-outline {
-    @apply outline outline-2 outline-transparent transition-[outline-color] ease-in hover:outline-accent-500;
+    @apply hover:outline-accent-500;
   }
 }

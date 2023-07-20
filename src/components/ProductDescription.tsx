@@ -1,12 +1,17 @@
 import { ReactComponent as PlusIcon } from "@images/icon-plus.svg";
 import { ReactComponent as MinusIcon } from "@images/icon-minus.svg";
 import { ReactComponent as CartIcon } from "@images/icon-cart.svg";
+import { useContext, useState } from "react";
+import CartContext from "@contexts/CartContext";
 
 interface Props {
   className?: string;
 }
 
 export default function ProductDescription(props: Props) {
+  const [cartContext, setCartContext] = useContext(CartContext);
+  const [nProducts, setNProducts] = useState(0);
+
   return (
     <div className={props.className}>
       <div className="p-6">
@@ -33,17 +38,34 @@ export default function ProductDescription(props: Props) {
         <div className="grid gap-4 lg:grid-cols-[auto,_1fr]">
           <div className="flex items-center justify-between gap-4 rounded-xl bg-neutral-100">
             <button
+              onClick={function () {
+                if (nProducts <= 0) {
+                  return;
+                }
+                setNProducts(nProducts - 1);
+              }}
               className="p-6 hover:opacity-60 focus-visible:opacity-60"
               type="button"
             >
               <MinusIcon />
             </button>
-            <span className="font-bold">0</span>
-            <button className="p-6 hover:opacity-60 focus-visible:opacity-60">
+            <span className="font-bold">{nProducts}</span>
+            <button
+              onClick={function () {
+                setNProducts(nProducts + 1);
+              }}
+              className="p-6 hover:opacity-60 focus-visible:opacity-60"
+            >
               <PlusIcon />
             </button>
           </div>
-          <button className="flex items-center justify-center gap-4 rounded-xl bg-accent-500 p-4 font-bold text-white hover:bg-accent-500/70">
+          <button
+            onClick={function () {
+              setCartContext(cartContext + nProducts);
+              setNProducts(0);
+            }}
+            className="btn btn-primary"
+          >
             <CartIcon className="w-4" />
             <span>Add to cart</span>
           </button>

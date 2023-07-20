@@ -70,7 +70,7 @@ export default function ProductShowCase(props: Props) {
 
           <div className="block h-full sm:hidden">
             <img
-              className="h-full w-full object-cover "
+              className="h-full w-full object-cover"
               src={currentImage.largeImageSrc}
               alt=""
             />
@@ -79,7 +79,7 @@ export default function ProductShowCase(props: Props) {
             onClick={function () {
               setIsModelVisible(true);
             }}
-            className="hidden overflow-hidden rounded-xl sm:block"
+            className="hidden h-full overflow-hidden rounded-xl sm:block"
           >
             <img
               className="h-full w-full object-cover"
