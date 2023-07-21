@@ -42,6 +42,28 @@ export default function Cart(props: Props) {
     );
   }
 
+  function detailBoxEventListener(e: Event) {
+    if (detailBox.current == null) {
+      return;
+    }
+    if (!(e.target instanceof Node) || !detailBox.current.contains(e.target)) {
+      setIsDetailBoxActive(false);
+    }
+  }
+
+  useEffect(
+    function () {
+      if (isDetailBoxActive) {
+        document.addEventListener("focusin", detailBoxEventListener);
+        document.addEventListener("mousedown", detailBoxEventListener);
+      } else {
+        document.removeEventListener("focusin", detailBoxEventListener);
+        document.removeEventListener("mousedown", detailBoxEventListener);
+      }
+    },
+    [isDetailBoxActive]
+  );
+
   useEffect(
     function () {
       if (
@@ -81,6 +103,16 @@ export default function Cart(props: Props) {
         )}
         type="button"
       >
+        {isDetailBoxActive ? (
+          <>
+            <span className="sr-only">Close Cart Details</span>
+            {cartContext > 0 && (
+              <span className="sr-only">Your cart is empty</span>
+            )}
+          </>
+        ) : (
+          <span className="sr-only">Cart Details</span>
+        )}
         <CartIcon className="min-w-[1rem]" />
 
         {/* Cart Item Count */}
@@ -123,6 +155,9 @@ export default function Cart(props: Props) {
                   setCartContext(0);
                 }}
               >
+                <span className="sr-only">
+                  Remove {cartContext} Fall Limited Edition Sneakers from cart
+                </span>
                 <TrashIcon />
               </button>
             </div>

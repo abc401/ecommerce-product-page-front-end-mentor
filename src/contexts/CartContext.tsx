@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext} from "react";
 
 const CartContext = createContext<[number, (new_value: number) => void]>([
   0,
